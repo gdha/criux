@@ -1,9 +1,0 @@
-2015-02-23 16:32:51 Including /home/gdhaese1/projects/criux/etc/opt/criux/HP-UX.conf
-2015-02-23 16:32:51 Including /home/gdhaese1/projects/criux/etc/opt/criux/local.conf
-2015-02-23 16:32:51 Using build area '/tmp/criux_3564'
-2015-02-23 16:32:51 Running help workflow
-2015-02-23 16:32:51 Finished running help workflow
-2015-02-23 16:32:51 Running exit tasks.
-2015-02-23 16:32:51 Finished in 0 seconds
-2015-02-23 16:32:51 Removing build area /tmp/criux_3564
-2015-02-23 16:32:51 End of program reached
