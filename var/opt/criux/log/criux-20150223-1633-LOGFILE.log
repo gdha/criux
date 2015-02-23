@@ -1,0 +1,25 @@
+2015-02-23 16:33:06 Check if our PID (259) is locked
+2015-02-23 16:33:06 Found /tmp/criux-LOCKDIR/criux-PIDFILE file - we could be locked...
+2015-02-23 16:33:06 lock is stale (134) - will continue
+2015-02-23 16:33:06 lock succeeded: 259 - /tmp/criux-LOCKDIR/criux-PIDFILE
+2015-02-23 16:33:07 criux 1.0 / Git
+2015-02-23 16:33:07 Command line options: bin/criux -s cluster
+2015-02-23 16:33:07 Using log file: /home/gdhaese1/projects/criux/var/opt/criux/log/criux-20150223-1633-LOGFILE.log
+2015-02-23 16:33:07 Including /home/gdhaese1/projects/criux/etc/opt/criux/HP-UX.conf
+2015-02-23 16:33:07 Including /home/gdhaese1/projects/criux/etc/opt/criux/local.conf
+2015-02-23 16:33:07 Using build area '/tmp/criux_1166'
+2015-02-23 16:33:07 Running cluster workflow
+2015-02-23 16:33:07 Running 'init' stage
+SourceStage[126]: /home/gdhaese1/projects/criux/opt/criux/scripts/init:  not found
+2015-02-23 16:33:07 Finished running empty 'init' stage
+2015-02-23 16:33:07 Running 'cluster' stage
+SourceStage[126]: /home/gdhaese1/projects/criux/opt/criux/scripts/cluster:  not found
+2015-02-23 16:33:07 Finished running empty 'cluster' stage
+2015-02-23 16:33:07 Running 'cleanup' stage
+SourceStage[126]: /home/gdhaese1/projects/criux/opt/criux/scripts/cleanup:  not found
+2015-02-23 16:33:07 Finished running empty 'cleanup' stage
+2015-02-23 16:33:07 Finished running cluster workflow
+2015-02-23 16:33:07 Running exit tasks.
+2015-02-23 16:33:07 Finished in 1 seconds
+2015-02-23 16:33:07 Removing build area /tmp/criux_1166
+2015-02-23 16:33:07 End of program reached

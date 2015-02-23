@@ -1,0 +1,35 @@
+2015-02-23 16:20:18 criux 1.0 / Git
+2015-02-23 16:20:18 Command line options: bin/criux dump
+2015-02-23 16:20:18 Using log file: /home/gdhaese1/projects/criux/var/opt/criux/log/criux-20150223-1620-LOGFILE.log
+2015-02-23 16:20:18 Including /home/gdhaese1/projects/criux/etc/opt/criux/HP-UX.conf
+2015-02-23 16:20:18 Including /home/gdhaese1/projects/criux/etc/opt/criux/local.conf
+2015-02-23 16:20:18 Using build area '/tmp/criux_28459'
+2015-02-23 16:20:18 Running dump workflow
+2015-02-23 16:20:18 Dumping out configuration and system information
+2015-02-23 16:20:18 System definition:
+2015-02-23 16:20:18                                     ARCH = HP-UX-ia64
+2015-02-23 16:20:18                                       OS = HP-UX
+2015-02-23 16:20:18                         OS_MASTER_VENDOR = 
+2015-02-23 16:20:18                        OS_MASTER_VERSION = 
+2015-02-23 16:20:18                    OS_MASTER_VENDOR_ARCH = 
+2015-02-23 16:20:18                 OS_MASTER_VENDOR_VERSION = 
+2015-02-23 16:20:18            OS_MASTER_VENDOR_VERSION_ARCH = 
+2015-02-23 16:20:18                                OS_VENDOR = hp
+2015-02-23 16:20:18                               OS_VERSION = 
+2015-02-23 16:20:18                           OS_VENDOR_ARCH = hp/ia64
+2015-02-23 16:20:18                        OS_VENDOR_VERSION = hp/
+2015-02-23 16:20:18                   OS_VENDOR_VERSION_ARCH = hp//ia64
+2015-02-23 16:20:18 Configuration tree:
+2015-02-23 16:20:18                          HP-UX-ia64.conf : missing/empty
+2015-02-23 16:20:18                               HP-UX.conf : OK
+2015-02-23 16:20:18                                  hp.conf : missing/empty
+2015-02-23 16:20:18                             hp/ia64.conf : missing/empty
+2015-02-23 16:20:18                                 hp/.conf : missing/empty
+2015-02-23 16:20:18                            hp//ia64.conf : missing/empty
+2015-02-23 16:20:18                                site.conf : missing/empty
+2015-02-23 16:20:18                               local.conf : OK
+2015-02-23 16:20:18 Finished running dump workflow
+2015-02-23 16:20:18 Running exit tasks.
+2015-02-23 16:20:18 Finished in 0 seconds
+2015-02-23 16:20:18 Removing build area /tmp/criux_28459
+2015-02-23 16:20:18 End of program reached
