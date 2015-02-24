@@ -1,0 +1,74 @@
+    tag criux
+    title criux
+    description criux
+    copyright (c)Copyright GPL v3
+    number A.00.01
+
+product
+    tag criux
+    title criux
+    description criux
+    copyright (c)Copyright GPL v3
+    revision A.00.01
+    architecture HP-UX_B.11_32/64
+    machine_type *
+    os_name HP-UX
+    os_release ?.11.*
+    os_version *
+    is_locatable false
+    is_patch false
+    vendor_tag GPL
+    readme < ../../README.md
+    preinstall preinstall.sh
+    postinstall postinstall.sh
+    configure configure.sh
+    postremove postremove.sh
+
+    fileset
+        tag criux-SCRIPTS
+        title criux script
+        revision A.00.01
+        description criux script
+
+        directory ../../opt/criux/bin = /opt/criux/bin
+        file_permissions -o root -g sys -m 755
+        file -m 755 -o root -g sys criux
+
+        directory ../../opt/criux/lib = /opt/criux/lib
+        file_permissions -o root -g sys -m 755
+        file *
+
+        directory ../../opt/criux/scripts = /opt/criux/scripts
+        file_permissions -o root -g sys -m 755
+        file *
+
+
+    end
+
+    fileset
+        tag criux-CONFIG
+        title criux configuration files
+        revision A.00.01
+        description criux configuration files
+
+        directory ../../etc/opt/criux = /etc/opt/criux
+        file_permissions -o root -g sys -m 755
+        file *
+    end
+
+    fileset
+        tag criux-VAR
+	title criux var files
+	revision A.00.01
+	description criux var files
+
+	directory ../../var/opt/criux = /var/opt/criux
+	file_permissions -o root -g sys -m 755
+
+	directory ../../var/opt/criux/log = /var/opt/criux/log
+	file *
+	exclude .gitignore
+	exclude *.log
+    end
+
+end # of product

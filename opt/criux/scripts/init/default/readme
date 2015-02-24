@@ -1,0 +1,20 @@
+How does this stage -init- work?
+
+init/default: is always parsed!
+init/hp: only parsed if architecture is HP-UX
+
+for the rest the scripts always start with a numeric number (2 digits) and end with an extension .sh; files not ending with extension .sh are ignored when parsing (such as this readme file)
+
+Furthermore, script 01_script.sh is executed before script 05_some_other_script.sh. However, keep in mind that the workflow script is located under the ./opt/criux/lib/ directory and in that script we defined the flow it will follow.
+
+Keep in mind that it makes sense that the tree "init" should logical be parsed before the tree "cleanup" of course.
+
+e.g. script ./opt/criux/lib/cluster-workflow.sh
+
+function WORKFLOW_cluster {
+# init will initialize CURRENT_STATUS variable
+SourceStage "init"
+SourceStage "cluster"
+SourceStage "cleanup"
+}
+
