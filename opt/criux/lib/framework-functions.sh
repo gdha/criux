@@ -64,15 +64,15 @@ function SourceStage {
 }
 
 
-function cleanup_build_area_and_end_program {
-    # Cleanup build area
+function cleanup_tmp_area_and_end_program {
+    # Cleanup TMP_DIR area
     Log "Finished in $((SECONDS-STARTTIME)) seconds"
-    if test "$KEEP_BUILD_DIR" ; then
-        LogPrint "You should also rm -Rf $BUILD_DIR"
+    if test "$KEEP_TMP_DIR" ; then
+        LogPrint "You should also rm -Rf $TMP_DIR"
     else
-        Log "Removing build area $BUILD_DIR"
+        Log "Removing temporary area $TMP_DIR"
         rm -Rf $TMP_DIR
-        [[ -d $BUILD_DIR ]] && rmdir $BUILD_DIR >&2
+        [[ -d $TMP_DIR ]] && rmdir $TMP_DIR >&2
     fi
     Log "End of program reached"
 }
