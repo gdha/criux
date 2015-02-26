@@ -1,0 +1,33 @@
+Workflow cluster
+================
+
+Purpose: find out if we run a cluster and which kind of cluster (serviceguard, vcs, powerha, ???). 
+We define a variable which decides the stage to be executed during this workflow (serviceguard is the
+only stage that will be populated so far)
+
+Furthermore, we run scripts which do some generic stuff like swlist output, patches, and so on (stuff
+we can use or re-use on other stages or sub-workflows)
+
+cluster 
+ |
+ +--> default: scripts that must run on ALL platforms and are OS independent!
+ |
+ +--> hp: scripts that are meant for HP-UX 11i HW
+ |
+ +--> GNU/Linux: scripts that are meant for GNU/Linux OS, be aware, if we only want SLEL then we might need other dirs:
+
+See 'dump' output: the last 3 are good sub-dir candidates for above example:
+ System definition:
+ ARCH = Linux-i386
+ OS = GNU/Linux
+ OS_MASTER_VENDOR =
+ OS_MASTER_VERSION =
+ OS_MASTER_VENDOR_ARCH =
+ OS_MASTER_VENDOR_VERSION =
+ OS_MASTER_VENDOR_VERSION_ARCH =
+ OS_VENDOR = suse
+ OS_VERSION = 11
+ OS_VENDOR_ARCH = suse/x86_64
+ OS_VENDOR_VERSION = suse/11
+ OS_VENDOR_VERSION_ARCH = suse/11/x86_64
+
