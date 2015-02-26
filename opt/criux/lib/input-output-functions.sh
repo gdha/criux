@@ -7,6 +7,13 @@ LF="
 "
 # collect exit tasks in this array
 
+
+#
+# Log: send arg to LOGFILE
+# LogPrint: send arg to LOGFILE and STDOUT
+# Print: send arg to STDOUT
+# Error: send arg to LOGFILE/STDOUT and bail out
+
 # add $* as a task to be done at the end
 function AddExitTask {
     # NOTE: we add the task at the beginning to make sure that they are executed in reverse order
@@ -156,7 +163,20 @@ function Echo {
     echo $arg "$*"
 }
 
+function Output2File {
+    # send input string to OUTFILE
+    # arg1: counter (integer), arg2: "left string", arg3: "right string"
+    # e.g. Output2File 22 "Host:" "$HOSTNAME"
+    typeset -i i
+    # count input args
+
+    i=$(IsDigit $1)
+    [[ $i -eq 0 ]] && i=1
+    printf "%${i}s %-80s " "$2" "$3"
+}
+
 function Print {
+    # to STDOUT
     test "$VERBOSE" && echo "$*" >&7
 }
 
@@ -211,23 +231,4 @@ function LogPrintIfError {
 # not VERBOSE, Progress stuff replaced by dummy/noop
 exec 8>/dev/null # start ProgressPipe listening at fd 8
 QuietAddExitTask "exec 8>&-" # new method, close fd 8 at exit
-
-
-function ReadCurrentStatus {
-    # read the last line of the $STATUS_FILE (input arg1; output status as string)
-    [[ ! -f $1 ]] && SetCurrentStatus "$1"
-    tail -1 $1 | awk '{print $3}'
-}
-
-function SetCurrentStatus {
-    # append the content of $CURRENT_STATUS (exported var) to the $STATUS_FILE
-    # input arg is $STATUS_FILE; output 0 success or 1 failure)
-    [[ -z "$CURRENT_STATUS" ]] && CURRENT_STATUS="$stage:start"
-    if [[ ! -f $1 ]]; then
-        # first time we ever run this tool
-        Log "Initialize $1 with status \"$CURRENT_STATUS\""
-    fi
-    # 2014-03-20 13:23:59 prep:ended
-    echo "$(Stamp)$CURRENT_STATUS" >> $1
-}
 
