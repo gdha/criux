@@ -12,6 +12,7 @@ LF="
 # Log: send arg to LOGFILE
 # LogPrint: send arg to LOGFILE and STDOUT
 # Print: send arg to STDOUT
+# PrintF: send args to OUTFILE
 # Error: send arg to LOGFILE/STDOUT and bail out
 
 # add $* as a task to be done at the end
@@ -163,16 +164,26 @@ function Echo {
     echo $arg "$*"
 }
 
-function Output2File {
+function PrintF {
     # send input string to OUTFILE
     # arg1: counter (integer), arg2: "left string", arg3: "right string"
-    # e.g. Output2File 22 "Host:" "$HOSTNAME"
+    # e.g. PrintF 22 "Host:" "$HOSTNAME"
+    # Be careful: no newline added automatically (we append OK/NOK/SKIP/WARN/NEWL)
+
     typeset -i i
     # count input args
+    if [[ $# -eq 2 ]]; then
+	i=1
+	str1="$1"
+	str2="$2"
+    else
+        i=$(IsDigit $1)
+        [[ $i -eq 0 ]] && i=1
+	str1="$2"
+	str2="$3"
+    fi
 
-    i=$(IsDigit $1)
-    [[ $i -eq 0 ]] && i=1
-    printf "%${i}s %-80s " "$2" "$3"
+    printf "%${i}s %-80s " "$str1" "$str2" >> "$OUTFILE"
 }
 
 function Print {
@@ -225,6 +236,49 @@ function LogPrintIfError {
     if (( $? != 0 )); then
         LogPrint "$@"
     fi
+}
+
+function NOK {
+    # 
+    ERRCOUNT=$((ERRCOUNT + 1))
+    echo "[FAILED]" >> "$OUTFILE"
+}
+
+function OK {
+    echo "[  OK  ]" >> "$OUTFILE"
+}
+
+function SKIP {
+    echo "[ SKIP ]" >> "$OUTFILE"
+}
+
+function WARN {
+    echo "[ WARN ]" >> "$OUTFILE"
+}
+
+function NEWL {
+    printf "\n" >> "$OUTFILE"
+}
+
+function LINE {
+    str="------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+
+    typeset -i i j
+    i=$(IsDigit $1)
+    [[ $i -eq 0 ]] && i=80
+    echo "${str}" | cut -c1-${i} >> "$OUTFILE"
+}
+
+function ShowBanner {
+     $(LINE 95)
+     $(PrintF 22 "Script:" "$PROGRAM") ; NEWL
+     $(PrintF 22 "Workflow:" "$WORKFLOW") ; NEWL
+     $(PrintF 22 "OS Release:" "$OS_VERSION") ; NEWL
+     $(PrintF 22 "Model:" "$(ShowHardwareModel)") ; NEWL
+     $(PrintF 22 "Host:" "$HOSTNAME") ; NEWL
+     $(PrintF 22 "User:" "$(whoami)") ; NEWL
+     $(PrintF 22 "Date:" "$(date +'%Y-%m-%d @ %H:%M:%S')") ; NEWL
+     $(LINE 95)
 }
 
 # setup dummy progress subsystem as a default

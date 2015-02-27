@@ -29,3 +29,9 @@ function SwJob {
     Log "Output: $swjob_cmd"
     echo $swjob_cmd | sh -
 }
+
+function ShowHardwareModel {
+    # echo the hardware model (this function should be repeated for each architecture
+    # for HP it is quite simple
+    echo $(uname -m)
+}

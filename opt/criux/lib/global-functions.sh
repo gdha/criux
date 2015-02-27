@@ -1,5 +1,5 @@
 function IsDigit {
-    expr "$1" + 1 > /dev/null 2>&1  # sets the exit to non-zero if $1 non-numeric
+    echo $(($1+0))          # returns 0 for non-numeric input, otherwise input=output
 }
 
 # ------------------------------------------------------------------------------
@@ -206,112 +206,6 @@ function SurroundingGrep {
     fl=$4
     [[ ! -f $fl ]] && Error "Input file $fl not found"
     awk 'c-->0;$0~s{if(b)for(c=b+1;c>1;c--)print r[(NR-c+1)%b];print;c=a}b{r[NR%b]=$0}' b=$b a=$a s="$s" $fl
-}
-
-function proceed_to_next_stage {
-    # input argument is stage we want to enter
-    # we will check the current status
-    next_stage="$1"  # the stage we would like to enter
-    prev_stage=$( echo $CURRENT_STATUS | cut -d: -f1 )
-    prev_status=$( echo $CURRENT_STATUS | cut -d: -f2 )
-    case "$next_stage" in
-        "init"   ) return 0 ;;  # should always be ok
-	"prep"   )
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "init" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "prep" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-        "preremove" )	
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "prep" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "preremove" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-        "preinstall" )
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "preremove" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "preinstall" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-        "install" )
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "preinstall" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "install" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-
-	"postinstall" )
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "install" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "postinstall" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-
-	"postremove" )
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "postinstall" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "postremove" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-
-	"configure" )
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "postremove" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "configure" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-
-	"postexecute" )
-	    if test "$SIMULATE" ; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "configure" ] && [ "$prev_status" = "ended" ]; then
-	       return 0 # yes you may
-            elif [ "$prev_stage" = "postexecute" ] && [ "$prev_status" = "start" ]; then
-	       return 0 # yes you may
-	    else
-	       return 1 # no you may not
-	    fi
-            ;;
-
-	"cleanup" ) return 0 ;;  # should always be ok
-
-    esac
 }
 
 # ------------------------------------------------------------------------------
