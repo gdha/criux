@@ -10,9 +10,9 @@ function LogToSyslog {
 
 # ------------------------------------------------------------------------------
 function MailTo {
-    [ -s "$LOGFILE" ] || LOGFILE=/dev/null
+    [ -s "$HTMLFILE" ] || HTMLFILE=/dev/null
     if [[ -n $mailusr ]]; then
-        mailx -s "$*" $mailusr < $LOGFILE
+        mailx -s "$*" $mailusr < $HTMLILE
     fi
 }
 
