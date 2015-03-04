@@ -1,7 +1,7 @@
 #05_check_hostname.sh
 # check if our hostname is valid and recorded in /etc/hosts file
 
-if [[ -z "$HOSTNAME"]]; then
+if [[ -z "$HOSTNAME" ]]; then
     PrintF 1 "==" "HOSTNAME variable has not been defined" ; NOK
 else
     grep -q "$HOSTNAME" /etc/hosts
