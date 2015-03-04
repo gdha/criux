@@ -1,0 +1,62 @@
+= Configuration
+
+== criux related configuration files
+
+The configuration files that +criux+ uses are basically just shell scripts and should be treated as such.
+
+The default location of the configuration files is +/etc/opt/criux/+. However, if you are working with the sources (e.g. via git clone) then it is perfectly possible to use the relative paths, e.g.
+
+    ls $HOME/project/criux/etc/opt/criux/
+
+The easiest way to explain which configuration files are possible is by showing the output of the +criux dump+ command:
+
+[source,bash]
+----
+    #-> bin/criux dump
+    criux 1.0 / Git
+    Using log file: /home/gdhaese1/projects/criux/var/opt/criux/log/criux-20150304-1015-LOGFILE.log
+    Dumping out configuration and system information
+    System definition:
+                                       ARCH = HP-UX-ia64
+                                         OS = HP-UX
+                           OS_MASTER_VENDOR =
+                          OS_MASTER_VERSION =
+                      OS_MASTER_VENDOR_ARCH =
+                   OS_MASTER_VENDOR_VERSION =
+              OS_MASTER_VENDOR_VERSION_ARCH =
+                                  OS_VENDOR = hp
+                                 OS_VERSION = 11.31
+                             OS_VENDOR_ARCH = hp/ia64
+                          OS_VENDOR_VERSION = hp/11.31
+                     OS_VENDOR_VERSION_ARCH = hp/11.31/ia64
+    Configuration tree:
+                            HP-UX-ia64.conf : missing/empty
+                                 HP-UX.conf : OK
+                                    hp.conf : missing/empty
+                               hp/ia64.conf : missing/empty
+                              hp/11.31.conf : missing/empty
+                         hp/11.31/ia64.conf : missing/empty
+                                  site.conf : missing/empty
+                                 local.conf : OK
+----
+
+=== Default configuration file default.conf
+The +default.conf+ contains lots of variables which should not be changed by the end-user. If you wish to modify one just redefine it in the +local.conf+ file. 
+
+
+=== Local configuration file local.conf
+The +local.conf+ should only contain variables which you want to overrule, as described in previous section (of the +default.conf+ file). It is important to know that the +local.conf+ file is the last configuration file read by +criux+ script and therefore, the variables defined in there are the last ones that will be used.
+
+=== Operating Specific configuration files
+
+On each OS you have specific OS related configuration files, e.g.
+
+    HP-UX.conf 
+    GNU/Linux.conf
+    SunOS.conf
+
+These configuration files typically contain variables which have only a meaning within that specific OS, e.g. on HP-UX
+
+    SWINSTALL=/usr/sbin/swinstall
+
+

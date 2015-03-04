@@ -1,0 +1,132 @@
+= Workflows
+The workflows (or commands) available can be listed with the +-h+ option or +help+ command:
+
+[source,bash]
+----
+# /opt/criux/bin/criux -h
+    ....
+    List of commands:
+     cluster         check the cluster configuration
+     dump            dump configuration and system information
+     mkdist          create a compressed tar archive distribution
+     purgelogs       purge the LOG [/var/opt/criux/log] directory
+     test            a simple test workflow
+
+----
+
+== Dump workflow
+The dump workflow was already discussed during the configuration chapter. The output of `/opt/criux/bin/criux dump`:
+
+[source,bash]
+----
+# /opt/criux/bin/criux dump
+criux 1.0 / 03-Mar-2015
+Using log file: /var/opt/criux/log/criux-20150226-1656-LOGFILE.log
+Dumping out configuration and system information
+System definition:
+                                    ARCH = HP-UX-ia64
+                                      OS = HP-UX
+                        OS_MASTER_VENDOR =
+                       OS_MASTER_VERSION =
+                   OS_MASTER_VENDOR_ARCH =
+                OS_MASTER_VENDOR_VERSION =
+           OS_MASTER_VENDOR_VERSION_ARCH =
+                               OS_VENDOR = hp
+                              OS_VERSION = 11.31
+                          OS_VENDOR_ARCH = hp/ia64
+                       OS_VENDOR_VERSION = hp/11.31
+                  OS_VENDOR_VERSION_ARCH = hp/11.31/ia64
+Configuration tree:
+                         HP-UX-ia64.conf : missing/empty
+                              HP-UX.conf : OK
+                                 hp.conf : missing/empty
+                            hp/ia64.conf : missing/empty
+                           hp/11.31.conf : missing/empty
+                      hp/11.31/ia64.conf : missing/empty
+                               site.conf : missing/empty
+                              local.conf : OK
+----
+
+The first part displays the system definitions, such as OS, hardware type and OS version.
+The second part shows the configuration part and which files it could find (or you may define, create and/or use). They do not need to exist.
+
+The following example shows the dump on a RHEL 7 system:
+
+[source,bash]
+----
+# /opt/criux/bin/criux dump
+criux 1.0 / Git
+Using log file: /var/opt/criux/log/criux-20150226-1859-LOGFILE.log
+Dumping out configuration and system information
+This is a 'Linux-x86_64' system, compatible with 'Linux-i386'.
+System definition:
+                                    ARCH = Linux-i386
+                                      OS = GNU/Linux
+                        OS_MASTER_VENDOR = fedora
+                       OS_MASTER_VERSION = 7
+                   OS_MASTER_VENDOR_ARCH = fedora/x86_64
+                OS_MASTER_VENDOR_VERSION = fedora/7
+           OS_MASTER_VENDOR_VERSION_ARCH = fedora/7/x86_64
+                               OS_VENDOR = rhel
+                              OS_VERSION = 7
+                          OS_VENDOR_ARCH = rhel/x86_64
+                       OS_VENDOR_VERSION = rhel/7
+                  OS_VENDOR_VERSION_ARCH = rhel/7/x86_64
+Configuration tree:
+                         Linux-i386.conf : missing/empty
+                          GNU/Linux.conf : OK
+                             fedora.conf : missing/empty
+                      fedora/x86_64.conf : missing/empty
+                           fedora/7.conf : missing/empty
+                    fedora/7/x86_64.conf : missing/empty
+                               rhel.conf : missing/empty
+                        rhel/x86_64.conf : missing/empty
+                             rhel/7.conf : missing/empty
+                      rhel/7/x86_64.conf : missing/empty
+                               site.conf : missing/empty
+                              local.conf : OK
+----
+
+
+These configuration files live under the +/etc/opt/criux+ or +./criux/etc/opt/criux+ (relative path) directory.
+At this moment we have the following configuration files present (however, it will grow over time):
+
+[source,bash]
+----
+    # ls -lR
+    total 112
+    drwxr-xr-x   2 gdhaese1   users         8192 Mar  6 13:39 GNU
+    -rw-r--r--   1 gdhaese1   users         1068 May 12 10:52 HP-UX.conf
+    -rw-r--r--   1 gdhaese1   users         4571 Jun 13 14:58 default.conf
+    -rw-r--r--   1 gdhaese1   users          790 May 21 09:48 local.conf
+    
+    ./GNU:
+    total 48
+    -rw-r--r--   1 gdhaese1   users           74 Mar  6 10:43 Linux.conf
+----
+
+== Mkdist workflow
+The mkdist workflow creates a compressed tar file of the current development tree, which only makes sense when you are using the +git clone+ version of criux. The compressed tar file is stored under +/tmp+ file system and is called +/tmp/criux-0.9.tar.gz+ (the version can be different of course).
+
+== Purgelogs workflow
+The purgelogs workflow just has a simple function and that is to purge log files which are older than 30 days. It will display the logs it has purged (only when you are using the option +-v+):
+
+[source,bash]
+----
+# opt/criux/bin/criux -v purgelogs
+----
+
+== Test workflow
+The test workflow is a very simplistic test (use option +-v+ to see something):
+
+[source,bash]
+----
+# opt/criux/bin/criux -v test
+criux 1.0 / Git
+Using log file: /home/gdhaese1/projects/criux/var/opt/criux/log/criux-20150225-1354-LOGFILE.log
+no stale NFS mount points found
+----
+
+== Cluster workflow
+The cluster workflow is the real work horse here 
+

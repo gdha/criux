@@ -1,0 +1,39 @@
+= Basic Usage
+Before digging deeper in +criux+ lets explain the basic usage. The option help (+-h+) will produce the following:
+
+[source,bash]
+----
+# /opt/criux/bin/criux -h
+Usage: criux [-dDFsSpvV] [-c DIR ] COMMAND [-- ARGS...]
+
+criux comes with ABSOLUTELY NO WARRANTY; for details see
+the GNU General Public License at: http://www.gnu.org/licenses/gpl.html
+
+Available options:
+ -c DIR       alternative config directory; instead of /etc/opt/criux
+ -d           debug mode; log debug messages
+ -D           debugscript mode; log every function call
+ -F           forcing preview or upgrade to continue when entering next stage is not allowed
+ -s           simulation mode; show what scripts criux would include
+ -S           step-by-step mode; acknowledge each script individually
+ -p           preview mode; run all install or other commands in preview
+ -v           verbose mode; show more output
+ -V           version information
+
+List of commands:
+ cluster         check the cluster configuration
+ dump            dump configuration and system information
+ mkdist          create a compressed tar archive distribution
+ purgelogs       purge the LOG [/var/opt/criux/log] directory
+ test            a simple test workflow
+----
+
+Keep in mind that criux has an excellent man page too. See +man 8 criux+
+
+It is important to know that +criux+ is a quiet program and will not show any output if you do not request for it with the verbose option (+-v+). Another point of interest is its excellent logging facilities as under +/var/opt/criux/log+ directory +criux+ keep a log file of each run. The log files are composed as follow `criux-<YYYYMMDD>-<HHMM>-LOGFILE.log`
+
+We already mentioned the evidence files which are kept under +/var/opt/criux/+ directory. 
+
+Starting up the program should be done by referencing the full path `/opt/criux/bin/criux` as the directory is not part of the +PATH+ variable, and we prefer to keep it this way to avoid accidents.
+
+

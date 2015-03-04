@@ -1,0 +1,29 @@
+= criux User Guide
+:author: Gratien Dhaese
+:version: 0.1 draft
+:data-uri:
+:doctype: book
+:encoding: UTF-8
+:numbered:
+:toc:
+:toclevels: 2
+
+//[width="10cm",height="10cm",align="left"]
+//image::upgrade-ux-sm.png[logo]
+++++
+//<img src="http://www.it3.be/images/upgrade-ux.png">
+++++
+
+This document describes everything there is to know regarding
+*criux*, an Open Source framework designed to assist the UNIX system engineer in investigating clustered
+systems
+
+:leveloffset: 1
+include::01-introduction.txt[]
+include::02-getting-started.txt[]
+include::03-configuration.txt[]
+include::04-workflows.txt[]
+include::05-usage.txt[]
+include::06-cluster.txt[]
+include::07-scripts.txt[]
+include::08-faq.txt[]

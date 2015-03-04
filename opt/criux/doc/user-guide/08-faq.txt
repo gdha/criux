@@ -1,0 +1,13 @@
+= Frequently Asked Questions
+
+== Criux not found
+If you get the following error when you try to run +criux+
+
+[source,bash]
+----
+# criux
+sh: criux:  not found.
+----
+
+The reason is that the absolute path +/opt/criux/bin+ is not added the the +PATH+ variable. This is done on purpose to avoid mistakes! Therefore, always use the full path +/opt/criux/bin/criux+
+

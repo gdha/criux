@@ -1,0 +1,20 @@
+= The criux scripts
+
+The scripts that are sourced by the main script `criux` reside under `/opt/criux/scripts/` directory and the easiest way to know what will be sourced is by running `/opt/criux/bin/criux -s`:
+
+NOTE: It depends on the OS architecture (see `dump` workflow) which scripts will be sources.
+
+In every _stage_ directory you will find minumum a `default` directory which is sourced by every OS and a hardware specific directory, such as:
+
+ - hp
+ - GNU/Linux
+ - sunos
+ - aix
+
+The scripts found under these directories are only sourced when you run `criux` on those HW architectures (make sense, no?).
+If you need new scripts just write a small script called `my_script.sh` (the `.sh` is important!) and it will be picked up the next time automatically.
+
+NOTE: there is no need to make these small scripts executable (nor is it required to start with `#!/bin/sh` or whatever).
+
+Now it is up to you! If you wish to add new scripts it is always usefull to first make a new issue at GitHub: https://github.com/gdha/criux/issues
+

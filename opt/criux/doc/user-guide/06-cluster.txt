@@ -1,0 +1,4 @@
+= Cluster Operation
+
+The *cluster* operation (or workflow) is the workflow which investigare the cluster by first determining which kind of cluster you are using, if any of course.
+
