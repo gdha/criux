@@ -1,6 +1,6 @@
 # system-workflow.sh
 
-WORKFLOW_cluster_DESCRIPTION="check the UNIX system"
+WORKFLOW_system_DESCRIPTION="check the UNIX system"
 set -A WORKFLOWS ${WORKFLOWS[@]} "system"
 
 function WORKFLOW_system {
