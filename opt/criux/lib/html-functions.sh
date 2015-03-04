@@ -43,14 +43,14 @@ function StartOfHtmlDocument
 function SetTitleOfDocument
 {
     # define title of HTML document and start of body (should be called 2th)
-    echo "<TITLE>${PRGNAME} - $(hostname)</TITLE>"
+    echo "<TITLE>${PROGRAM} - $(hostname)</TITLE>"
     echo "</HEAD>"
     echo "<BODY>"
     echo "<CENTER>"
     echo "<H1> <FONT COLOR=blue>"
-    echo "<P><hr><B>${PRGNAME} - $(hostname) - $*</B></P>"
+    echo "<P><hr><B>${PROGRAM} - $(hostname) - $*</B></P>"
     echo "</FONT> </H1>"
-    echo "<hr> <FONT COLOR=blue> <small>Created on \"$(date)\" by $PRGNAME</small> </FONT>"
+    echo "<hr> <FONT COLOR=blue> <small>Created on \"$(date)\" by $PROGRAM</small> </FONT>"
     echo "</CENTER>"
 }
 
@@ -140,7 +140,7 @@ function GenerateHTMLFile
     StartOfHtmlDocument
     SetTitleOfDocument "$*"
     CreateTable
-    cat $OUTPUTFILE | while read LINE
+    cat $OUTFILE | while read LINE
     do
 	case "$( echo $LINE | cut -c1-6 )" in
             "======"|"######"|"------" ) # markers to split up in tables
