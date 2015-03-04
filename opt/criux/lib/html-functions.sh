@@ -135,6 +135,7 @@ function CreateParagraphLine
 
 function GenerateHTMLMail
 {
+    (
     MailHeaders "$*"
     StartOfHtmlDocument
     SetTitleOfDocument "$*"
@@ -142,7 +143,7 @@ function GenerateHTMLMail
     cat $LOGFILE | while read LINE
     do
 	case "$( echo $LINE | cut -c1-6 )" in
-            "======"|"######" ) # markers to split up in tables
+            "======"|"######"|"------" ) # markers to split up in tables
 		      EndTable
 		      CreateParagraphLine
 		      CreateTable
@@ -152,5 +153,6 @@ function GenerateHTMLMail
     done
     EndTable
     EndOfHtmlDocument
+    ) >> "$HTMLFILE"
 }
 
