@@ -9,7 +9,7 @@ all: docs
 dist: docs
 
 
-docs: $(htmltargets)
+docs: 
 	make -C user-guide docs
 
 install: 
