@@ -5,6 +5,7 @@ set -A WORKFLOWS ${WORKFLOWS[@]} "cluster"
 
 function WORKFLOW_cluster {
 
+    # once the 'system' workflow is ready we can remove the init and add 'system' instead
     SourceStage "init"
 
     # Stage 'cluster' (directory) is generic where we will find out the type of the cluster
