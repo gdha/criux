@@ -133,14 +133,14 @@ function CreateParagraphLine
     echo "<P><HR></P>"
 }
 
-function GenerateHTMLMail
+function GenerateHTMLFile
 {
     (
     MailHeaders "$*"
     StartOfHtmlDocument
     SetTitleOfDocument "$*"
     CreateTable
-    cat $LOGFILE | while read LINE
+    cat $OUTPUTFILE | while read LINE
     do
 	case "$( echo $LINE | cut -c1-6 )" in
             "======"|"######"|"------" ) # markers to split up in tables
