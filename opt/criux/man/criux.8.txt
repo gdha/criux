@@ -1,0 +1,154 @@
+= criux(8)
+:version: v1.0
+:date: 17 june 2015
+:data-uri:
+:author: Gratien Dhaese
+:doctype: manpage
+:lang: en
+:quirks:
+
+== NAME
+criux - a framework to investigate an Unix clustered system (Linux, HP-UX and Solaris)
+
+== SYNOPSIS
+*criux* [*-dDsSvV*] [*-c DIR*] _COMMAND_ [-- _ARGS_...]
+
+== DESCRIPTION
+Criux is an Open Source framework to investigate an Unix clustered system (Linux, 
+HP-UX and Solaris)
+
+Extending criux is made possible by its modular framework.
+Consistent logging and optionally extended output help understand the concepts
+behind Criux and help debug during development.
+
+Criux comes with ABSOLUTELY NO WARRANTY; for details see
+the GNU General Public License at: http://www.gnu.org/licenses/gpl.html
+
+== OPTIONS
+
+=== GLOBAL OPTIONS
+
+-c DIR::
+    alternative config directory; instead of /etc/opt/criux
+
+-d::
+    *debug mode* (log debug messages to log file)
+
+-D::
+    *debugscript mode* (log every function call)
+
+-s::
+    *simulation mode* (show what scripts rear would include)
+
+-S::
+    *step-by-step mode* (acknowledge each script individually)
+
+-m::
+    mail the report to end-user(s) defined
+
+-v::
+    *verbose output* (show progress output)
+
+-V::
+    version information
+
+=== COMMANDS
+
+*dump*::
+    dump configuration and system information; please run this to verify
+    your setup
+
+*help*::
+    print full list of commands and options
+
+*purgelogs*::
+    remove log files older then 30 days
+
+*mkdist*::
+    creates a tar archive of criux
+
+*test*::
+    a simple test flow (stale NFS test)
+
+*cluster*::
+    investigate the cluster configuration and create a report (text and HTML)
+
+// Use 'criux -v help' for more advanced commands.
+
+== CONFIGURATION
+
+There are several configuration files available under (*/etc/opt/criux/*):
+
+*default.conf*::
+    the default configuration file which defines parameters and variables. You should not change anything in here. If you need to modify a parameter then copy that line into the *local.conf* file.
+
+*local.conf*::
+    the local configuration file meant for the end-user. Remember, configuration files should be treated as shell scripts.
+
+*HP-UX.conf*::
+    parameters and settings only read by HP-UX systems
+
+*SunOS.conf*::
+    parameters and settings only read by Solaris systems
+
+*GNU/Linux.conf*::
+    parameters and settings only read by GNU/Linux systems
+
+You have the choice to create additional configuration files if required. Use the *criux dump* and check the _configuration tree_ section to have a complete overview of all configuration files searched for (it is OK if these do not exist).
+
+
+== EXIT STATUS
+0::
+    Successful program execution.
+>0::
+    Usage, syntax or execution errors. Check the log file in
+    _/var/opt/criux/log/_ for more information.
+
+== FILES
+/opt/criux/bin/criux::
+The program itself.
+
+/etc/opt/criux/default.conf::
+The default configuration file.
+
+/etc/opt/criux/local.conf::
+System specific configuration can be set here.
+
+/var/opt/criux/::
+Directory which contains all text and HTML reports and log directory.
+
+
+/var/opt/criux/log/::
+Directory containing all log files of each criux run with timestamps
+
+/tmp/criux.xxx::
+Criux working directory. By default it is removed after each run. If criux exits with an error you probably need to remove this directory ny hand. In debugging mode the directory will not be removed as aid in helping to debug this software.
+
+/opt/criux/scripts::
+Each section will have its own directory (with the name of a section) under this directory. Under each section directory you will find sub-directories with $OS_VENDOR name. Finally, under the $OS_VENDOR directories you will find scripts (without the she-bang!) that will be executed according the flow of the script. To honor the sequence use a prefix number. To see all scripts to be executed use the simulate option:
+
+    # /opt/criux/bin/criux -s
+    criux 0.1 / Git
+    Using log file: /var/opt/criux/log/criux-20140506-1037-LOGFILE.log
+    Source init/default/03_prepare_tmp_build_area.sh
+    Source init/default/05_select_ini_file.sh
+    ...
+
+
+To run +criux+ with the _cluster_ workflow:
+
+    # /opt/criux/bin/criux -v cluster
+
+
+== BUGS
+Feedback is welcome, please report any issues or improvements to our issue-tracker at: https://github.com/gdha/criux/issues
+Furthermore, we welcome pull request via GitHub.
+
+== COPYRIGHT
+(c) 2015 - 
+
+Gratien Dhaese
+
+Criux comes with ABSOLUTELY NO WARRANTY; for details see the GNU General Public License at
+http://www.gnu.org/licenses/gpl.html
+
