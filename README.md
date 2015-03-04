@@ -1,7 +1,7 @@
 criux
 =====
 
-# Dummy Project Framework (for Korn Shell projects)
+# CRIUX (investigate clustered unix systems)
 
 ### License
 
