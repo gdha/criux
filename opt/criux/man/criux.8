@@ -1,0 +1,243 @@
+'\" t
+.\"     Title: criux
+.\"    Author: Gratien Dhaese
+.\" Generator: DocBook XSL Stylesheets v1.78.1 <http://docbook.sf.net/>
+.\"      Date: 17 june 2015
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "CRIUX" "8" "17 june 2015" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+criux \- a framework to investigate an Unix clustered system (Linux, HP\-UX and Solaris)
+.SH "SYNOPSIS"
+.sp
+\fBcriux\fR [\fB\-dDsSvV\fR] [\fB\-c DIR\fR] \fICOMMAND\fR [\-\- \fIARGS\fR\&...]
+.SH "DESCRIPTION"
+.sp
+Criux is an Open Source framework to investigate an Unix clustered system (Linux, HP\-UX and Solaris)
+.sp
+Extending criux is made possible by its modular framework\&. Consistent logging and optionally extended output help understand the concepts behind Criux and help debug during development\&.
+.sp
+Criux comes with ABSOLUTELY NO WARRANTY; for details see the GNU General Public License at: \m[blue]\fBhttp://www\&.gnu\&.org/licenses/gpl\&.html\fR\m[]
+.SH "OPTIONS"
+.SS "GLOBAL OPTIONS"
+.PP
+\-c DIR
+.RS 4
+alternative config directory; instead of /etc/opt/criux
+.RE
+.PP
+\-d
+.RS 4
+\fBdebug mode\fR
+(log debug messages to log file)
+.RE
+.PP
+\-D
+.RS 4
+\fBdebugscript mode\fR
+(log every function call)
+.RE
+.PP
+\-s
+.RS 4
+\fBsimulation mode\fR
+(show what scripts rear would include)
+.RE
+.PP
+\-S
+.RS 4
+\fBstep\-by\-step mode\fR
+(acknowledge each script individually)
+.RE
+.PP
+\-m
+.RS 4
+mail the report to end\-user(s) defined
+.RE
+.PP
+\-v
+.RS 4
+\fBverbose output\fR
+(show progress output)
+.RE
+.PP
+\-V
+.RS 4
+version information
+.RE
+.SS "COMMANDS"
+.PP
+\fBdump\fR
+.RS 4
+dump configuration and system information; please run this to verify your setup
+.RE
+.PP
+\fBhelp\fR
+.RS 4
+print full list of commands and options
+.RE
+.PP
+\fBpurgelogs\fR
+.RS 4
+remove log files older then 30 days
+.RE
+.PP
+\fBmkdist\fR
+.RS 4
+creates a tar archive of criux
+.RE
+.PP
+\fBtest\fR
+.RS 4
+a simple test flow (stale NFS test)
+.RE
+.PP
+\fBcluster\fR
+.RS 4
+investigate the cluster configuration and create a report (text and HTML)
+.RE
+.SH "CONFIGURATION"
+.sp
+There are several configuration files available under (\fB/etc/opt/criux/\fR):
+.PP
+\fBdefault\&.conf\fR
+.RS 4
+the default configuration file which defines parameters and variables\&. You should not change anything in here\&. If you need to modify a parameter then copy that line into the
+\fBlocal\&.conf\fR
+file\&.
+.RE
+.PP
+\fBlocal\&.conf\fR
+.RS 4
+the local configuration file meant for the end\-user\&. Remember, configuration files should be treated as shell scripts\&.
+.RE
+.PP
+\fBHP\-UX\&.conf\fR
+.RS 4
+parameters and settings only read by HP\-UX systems
+.RE
+.PP
+\fBSunOS\&.conf\fR
+.RS 4
+parameters and settings only read by Solaris systems
+.RE
+.PP
+\fBGNU/Linux\&.conf\fR
+.RS 4
+parameters and settings only read by GNU/Linux systems
+.RE
+.sp
+You have the choice to create additional configuration files if required\&. Use the \fBcriux dump\fR and check the \fIconfiguration tree\fR section to have a complete overview of all configuration files searched for (it is OK if these do not exist)\&.
+.SH "EXIT STATUS"
+.PP
+0
+.RS 4
+Successful program execution\&.
+.RE
+.PP
+>0
+.RS 4
+Usage, syntax or execution errors\&. Check the log file in
+\fI/var/opt/criux/log/\fR
+for more information\&.
+.RE
+.SH "FILES"
+.PP
+/opt/criux/bin/criux
+.RS 4
+The program itself\&.
+.RE
+.PP
+/etc/opt/criux/default\&.conf
+.RS 4
+The default configuration file\&.
+.RE
+.PP
+/etc/opt/criux/local\&.conf
+.RS 4
+System specific configuration can be set here\&.
+.RE
+.PP
+/var/opt/criux/
+.RS 4
+Directory which contains all text and HTML reports and log directory\&.
+.RE
+.PP
+/var/opt/criux/log/
+.RS 4
+Directory containing all log files of each criux run with timestamps
+.RE
+.PP
+/tmp/criux\&.xxx
+.RS 4
+Criux working directory\&. By default it is removed after each run\&. If criux exits with an error you probably need to remove this directory ny hand\&. In debugging mode the directory will not be removed as aid in helping to debug this software\&.
+.RE
+.PP
+/opt/criux/scripts
+.RS 4
+Each section will have its own directory (with the name of a section) under this directory\&. Under each section directory you will find sub\-directories with $OS_VENDOR name\&. Finally, under the $OS_VENDOR directories you will find scripts (without the she\-bang!) that will be executed according the flow of the script\&. To honor the sequence use a prefix number\&. To see all scripts to be executed use the simulate option:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# /opt/criux/bin/criux \-s
+criux 0\&.1 / Git
+Using log file: /var/opt/criux/log/criux\-20140506\-1037\-LOGFILE\&.log
+Source init/default/03_prepare_tmp_build_area\&.sh
+Source init/default/05_select_ini_file\&.sh
+\&.\&.\&.
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+To run criux with the \fIcluster\fR workflow:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# /opt/criux/bin/criux \-v cluster
+.fi
+.if n \{\
+.RE
+.\}
+.SH "BUGS"
+.sp
+Feedback is welcome, please report any issues or improvements to our issue\-tracker at: \m[blue]\fBhttps://github\&.com/gdha/criux/issues\fR\m[] Furthermore, we welcome pull request via GitHub\&.
+.SH "COPYRIGHT"
+.sp
+(c) 2015 \-
+.sp
+Gratien Dhaese
+.sp
+Criux comes with ABSOLUTELY NO WARRANTY; for details see the GNU General Public License at \m[blue]\fBhttp://www\&.gnu\&.org/licenses/gpl\&.html\fR\m[]
+.SH "AUTHOR"
+.PP
+\fBGratien Dhaese\fR
+.RS 4
+Author.
+.RE
