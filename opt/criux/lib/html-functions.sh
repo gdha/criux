@@ -2,7 +2,7 @@ function MailHeaders
 {
     # input paramters (string of text) is used for subject line
     echo "From: ${FromUser:-root}"
-    echo "To: ${ToUser:-root}"
+    echo "To: ${MAILDESTINATION:-root}"
     echo "Subject: $*"
     echo "Content-type: text/html"
     echo "$*" | grep -q "FAILED"
