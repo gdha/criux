@@ -3,5 +3,5 @@
 GenerateHTMLFile
 StopIfError "Could not generate the $HTMLFILE"
 
-cp $v "$HTMLFILE" "$VAR_DIR/${PROGRAM%.*}-$(date '+%Y%m%d-%H%M').html" >&2
+cp  "$HTMLFILE" "$VAR_DIR/${PROGRAM%.*}-$(date '+%Y%m%d-%H%M').html" >&2
 StopIfError "Could not copy $HTMLFILE to $VAR_DIR/${PROGRAM%.*}-$(date '+%Y%m%d-%H%M').html"
