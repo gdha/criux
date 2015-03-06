@@ -58,9 +58,15 @@ function CreateLockDir {
         if [ -f "$PIDFILE" ]; then
             Log "Found $PIDFILE file - we could be locked..."
             OTHERPID=$(< "$PIDFILE" )
+            # seen a case where OTHERPID was an old PID of criux, but now in use by another program
+            # therefore, we should also test if OTHERPID belongs to criux or not
             if kill -s 0 ${OTHERPID} 2>/dev/null ; then
-                Log "locked on ${OTHERPID} - try again"
-                return 1
+                if UNIX=95 ps -ef | grep ${OTHERPID} | grep -v grep | grep -q $PROGRAM ; then
+                    Log "locked on ${OTHERPID} - try again"
+                    return 1
+                else
+                    Log "PID (${OTHERPID}) belongs now to another program - will continue"
+                fi
             else
                 Log "lock is stale (${OTHERPID}) - will continue"
             fi
