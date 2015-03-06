@@ -2,13 +2,13 @@
 # check if our hostname is valid and recorded in /etc/hosts file
 
 if [[ -z "$HOSTNAME" ]]; then
-    PrintF 1 "==" "HOSTNAME variable has not been defined" ; NOK
+    Failed "HOSTNAME variable has not been defined"
 else
     grep -q "$HOSTNAME" /etc/hosts
     if [[ $? -eq 0 ]]; then
-        PrintF 1 "**" "HOSTNAME=$HOSTNAME defined in /etc/hosts" ; OK
+        Ok "Hostname $HOSTNAME is defined in /etc/hosts"
     else
-        PrintF 1 "==" "HOSTNAME=$HOSTNAME not found in /etc/hosts" ; NOK
+        Failed "Hostname $HOSTNAME is not found in /etc/hosts"
     fi
 fi
 

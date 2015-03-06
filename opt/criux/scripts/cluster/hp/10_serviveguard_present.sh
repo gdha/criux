@@ -10,7 +10,7 @@ esac
 if [[ ! -z "$SG_VERSION" ]]; then
     SERVICEGUARD_CLUSTER=1
     LogPrint "Found Serviceguard version $SG_VERSION"
-    #PrintF " **" "HP Serviceguard version $SG_VERSION" ; OK  # OK is a function
+    #Ok "HP Serviceguard version $SG_VERSION"  # Ok is a function
 fi 
 
 # we will not go any deeper in this workflow; we will kick off a sub-workflow serviceguard

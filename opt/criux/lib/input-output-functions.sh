@@ -168,7 +168,7 @@ function PrintF {
     # send input string to OUTFILE
     # arg1: counter (integer), arg2: "left string", arg3: "right string"
     # e.g. PrintF 22 "Host:" "$HOSTNAME"
-    # Be careful: no newline added automatically (we append OK/NOK/SKIP/WARN/NEWL)
+    # Be careful: no newline added automatically (is called by Ok/Failed/Skip/Warn)
 
     typeset -i i
     # count input args
@@ -238,25 +238,29 @@ function LogPrintIfError {
     fi
 }
 
-function NOK {
+function Failed {
     # 
     ERRCOUNT=$((ERRCOUNT + 1))
+    PrintF 3 "==" "$@"
     echo "[FAILED]" >> "$OUTFILE"
 }
 
-function OK {
+function Ok {
+    PrintF 3 "**" "$@"
     echo "[  OK  ]" >> "$OUTFILE"
 }
 
-function SKIP {
+function Skip {
+    PrintF 3 "  " "$@"
     echo "[ SKIP ]" >> "$OUTFILE"
 }
 
-function WARN {
+function Warn {
+    PrintF 3 "  " "$@"
     echo "[ WARN ]" >> "$OUTFILE"
 }
 
-function NEWL {
+function Newl {
     printf "\n" >> "$OUTFILE"
 }
 
@@ -271,13 +275,13 @@ function LINE {
 
 function ShowBanner {
      $(LINE 95)
-     $(PrintF 22 "Script:" "$PROGRAM") ; NEWL
-     $(PrintF 22 "Workflow:" "$WORKFLOW") ; NEWL
-     $(PrintF 22 "OS Release:" "$OS_VERSION") ; NEWL
-     $(PrintF 22 "Model:" "$(ShowHardwareModel)") ; NEWL
-     $(PrintF 22 "Host:" "$HOSTNAME") ; NEWL
-     $(PrintF 22 "User:" "$(whoami)") ; NEWL
-     $(PrintF 22 "Date:" "$(date +'%Y-%m-%d @ %H:%M:%S')") ; NEWL
+     $(PrintF 22 "Script:" "$PROGRAM") ; Newl
+     $(PrintF 22 "Workflow:" "$WORKFLOW") ; Newl
+     $(PrintF 22 "OS Release:" "$OS_VERSION") ; Newl
+     $(PrintF 22 "Model:" "$(ShowHardwareModel)") ; Newl
+     $(PrintF 22 "Host:" "$HOSTNAME") ; Newl
+     $(PrintF 22 "User:" "$(whoami)") ; Newl
+     $(PrintF 22 "Date:" "$(date +'%Y-%m-%d @ %H:%M:%S')") ; Newl
      $(LINE 95)
 }
 
