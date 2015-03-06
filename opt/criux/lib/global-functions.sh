@@ -65,7 +65,8 @@ function CreateLockDir {
                     Log "locked on ${OTHERPID} - try again"
                     return 1
                 else
-                    Log "PID (${OTHERPID}) belongs now to another program - will continue"
+                    OTHERPROC=$(UNIX=95 ps -ef | grep ${OTHERPID} | grep -v grep | awk '{print $8}')
+                    Log "PID (${OTHERPID}) belongs now to process ${OTHERPROC} - will continue"
                 fi
             else
                 Log "lock is stale (${OTHERPID}) - will continue"
