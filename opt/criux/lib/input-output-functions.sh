@@ -251,12 +251,12 @@ function Ok {
 }
 
 function Skip {
-    PrintF 3 "  " "$@"
+    PrintF 3 "**" "$@"
     echo "[ SKIP ]" >> "$OUTFILE"
 }
 
 function Warn {
-    PrintF 3 "  " "$@"
+    PrintF 3 "**" "$@"
     echo "[ WARN ]" >> "$OUTFILE"
 }
 
