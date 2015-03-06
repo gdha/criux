@@ -88,7 +88,7 @@ function TableRow
                 ;;
 	*     ) columns[0]=""  ;;
     esac
-    columns[1]=$( echo "$row" |  sed -e 's/\(.*\)\[.*/\1/' )   # the text with ** and [ ... ]
+    columns[1]=$( echo "$row" |  sed -e 's/\(.*\)\[.*/\1/' )   # the text with ** until [ 
     echo "$row" | grep -q '\['
     if (( $? == 0 )) ; then
         columns[2]=$( echo "$row" | sed -e 's/.*\(\[.*\]\)/\1/' )  # contains [  OK  ]
@@ -120,7 +120,8 @@ function TableRow
                 echo "  <td align=left><font size=-1>\c"
         fi
 
-	str=$( echo "${columns[c]}" | sed -e 's/^[:blank:]*//;s/[:blank:]*$//' )  # remove leading/trailing spaces
+	#str=$( echo "${columns[c]}" | sed -e 's/^[:blank:]*//;s/[:blank:]*$//' )  # remove leading/trailing spaces
+	str=$( echo "${columns[c]}" | sed -e 's/^[ \t]*//;s/[ \t]*$//' )  # remove leading/trailing spaces
         (( c == 1 )) && printf "<b>$str</b>" || printf "$str"
         echo "</td>"
         c=$((c + 1))

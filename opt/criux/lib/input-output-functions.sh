@@ -277,7 +277,7 @@ function ShowBanner {
      $(LINE 95)
      $(PrintF 22 "Script:" "$PROGRAM") ; Newl
      $(PrintF 22 "Workflow:" "$WORKFLOW") ; Newl
-     $(PrintF 22 "OS Release:" "$OS_VERSION") ; Newl
+     $(PrintF 22 "OS Release:" "$OS_VENDOR_VERSION") ; Newl
      $(PrintF 22 "Model:" "$(ShowHardwareModel)") ; Newl
      $(PrintF 22 "Host:" "$HOSTNAME") ; Newl
      $(PrintF 22 "User:" "$(whoami)") ; Newl
