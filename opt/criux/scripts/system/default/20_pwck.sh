@@ -4,6 +4,6 @@ if [[ -s "$TMP_DIR/pwck" ]]; then
     Warn "pwck returned the following output:"
     sed -e 's/\[/\(/g' -e 's/\]/\)/g' < "$TMP_DIR/pwck" >> "$OUTFILE"
 else
-    Ok "pwck - password/group file check is clean"
+    Ok "pwck - password file check is clean"
 fi
 
