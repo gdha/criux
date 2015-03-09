@@ -260,6 +260,11 @@ function Warn {
     echo "[ WARN ]" >> "$OUTFILE"
 }
 
+function Comment {
+    PrintF 5 "" "$@"
+    Newl
+}
+
 function Newl {
     printf "\n" >> "$OUTFILE"
 }
