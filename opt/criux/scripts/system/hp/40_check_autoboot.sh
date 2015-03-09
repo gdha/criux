@@ -7,5 +7,7 @@ if (( $? > 0 )) ; then
     LogPrint "Autoboot is not configured properly"
     Failed "Autoboot is not configured properly"
     Comment "Use 'setboot -p $a -b on'"
+else
+    Ok "Autoboot is configured properly"
 fi
 
