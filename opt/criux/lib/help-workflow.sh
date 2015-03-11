@@ -3,7 +3,7 @@
 
 function WORKFLOW_help  {
     cat <<EOF
-Usage: $PROGRAM [-dDFsSpvV] [-c DIR ] COMMAND [-- ARGS...]
+Usage: $PROGRAM [-dDmsSvV] [-c DIR ] COMMAND [-- ARGS...]
 
 $PRODUCT comes with ABSOLUTELY NO WARRANTY; for details see
 the GNU General Public License at: http://www.gnu.org/licenses/gpl.html
@@ -12,6 +12,7 @@ Available options:
  -c DIR       alternative config directory; instead of /etc/opt/$PROGRAM
  -d           debug mode; log debug messages
  -D           debugscript mode; log every function call
+ -m           mail the report to \$MAILDESTINATION  ($MAILDESTINATION)
  -s           simulation mode; show what scripts $PROGRAM would include
  -S           step-by-step mode; acknowledge each script individually
  -v           verbose mode; show more output
