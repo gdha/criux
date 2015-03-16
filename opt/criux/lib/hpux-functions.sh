@@ -29,9 +29,20 @@ function SwJob {
     Log "Output: $swjob_cmd"
     echo $swjob_cmd | sh -
 }
+# ------------------------------------------------------------------------------
 
 function ShowHardwareModel {
     # echo the hardware model (this function should be repeated for each architecture
     # for HP it is quite simple
     echo $(uname -m)
 }
+# ------------------------------------------------------------------------------
+
+function GrabBlockSize {
+    # return the block size of the device
+    bs=$(/usr/sbin/fstyp -v "$1" 2>/dev/null | grep f_frsize | awk '{print $2}')
+    [[ -z "$bs" ]] && bs=0
+    echo $bs
+}
+# ------------------------------------------------------------------------------
+
