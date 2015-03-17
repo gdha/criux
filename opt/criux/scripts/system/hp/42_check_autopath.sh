@@ -2,8 +2,8 @@
 [[ ! -x /sbin/autopath ]] && return  # executable not present (Secure Path software not present)
 # HP-UX 11.31 does not have autopath, it is now built-in
 
-/sbin/autopath | grep "Auto Discover" | grep -q ON
-if (( $? = 0 )); then
+/sbin/autopath display | grep "Auto Discover" | grep -q ON
+if (( $? == 0 )); then
     Ok "Secure Path Auto Discover is on."
 else
     Warn "Secure Path Auto Discover is off!"
@@ -16,7 +16,7 @@ count=$(wc -l "$TMP_DIR/autopath.lbp" | awk '{ print $1 }')
 
 case $count in
     1) grep -q "Shortest Service Time" "$TMP_DIR/autopath.lbp"
-       if (( $? = 0 )) ; then
+       if (( $? == 0 )) ; then
            Ok "Multipath LB Policy \"Shortest Service Time\" is in use."
        else
            Failed "Multipath LB Policy setting is not set to \"Shortest Service Time\"."
