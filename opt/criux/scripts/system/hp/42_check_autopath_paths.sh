@@ -14,6 +14,9 @@ i=0      # amount of paths
 Active=0 # active paths
 Failed=0 # failed paths
 j=0      # verification block
+count=0  # count the positives (otherwise we might get too much output)
+set -A Failed_devs # array
+c=-1     # counter of Failed_devs array
 
 LogPrint "Analyzing number of storage paths per SAN disk"
 cat "$TMP_DIR/autopath.paths" | while read LINE
@@ -22,26 +25,37 @@ do
     if (( $? == 0 )) ; then
         if (( j == 1 )) ; then
             if (( i < 2 )) ; then
-                Warn "Disk WWN $WWN has only 1 path!"
+                Warn "Disk WWN $WWN has only 1 storage path!"
 	    else
 		if (( Failed > 0 )) ; then
                     Warn "Disk WWN $WWN has $Failed failed path(s), and $Active active paths."
 		else
-                    Ok "Disk WWN $WWN has $Active active paths." 
+                    #Ok "Disk WWN $WWN has $Active active paths." 
+		    count=$((count + 1))
 		fi
-	    fi
-	fi
-	j=1    # only check active/failed paths after first cycle
+	    fi # i < 2
+	fi # j == 1
+	j=1    # only check active/failed paths after first complete cycle
         i=0
 	Active=0
 	Failed=0
 	WWN=$(echo $LINE | cut -d: -f2)
 	continue
-    fi
+    fi # $? == 0
     echo "$LINE" | grep -q "^/dev"
     if (( $? == 0 )) ; then
         i=$((i + 1))
 	echo "$LINE" | grep -q "Active" && Active=$((Active + 1))
-	echo "$LINE" | grep -q "Failed" && Failed=$((Failed + 1))
+	echo "$LINE" | grep -q "Failed"
+	if (( $? == 0 )) ; then
+	    Failed=$((Failed + 1))
+	    c=$((c + 1))
+	    Failed_devs[$c]="$(echo "$LINE" | awk '{print $1}')"
+	fi # $? == 0
     fi
 done
+Ok "We have $count disk paths in good balance."
+if (( c >= 0 )) ; then
+    Warn "Failed SAN devices are :"
+    Comment "${Failed_devs[@]}"
+fi

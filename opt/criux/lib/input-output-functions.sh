@@ -183,7 +183,7 @@ function PrintF {
 	str2="$3"
     fi
 
-    printf "%${i}s %-80s " "$str1" "$str2" >> "$OUTFILE"
+    printf "%${i}s %-77s " "$str1" "$str2" >> "$OUTFILE"
 }
 
 function Print {
