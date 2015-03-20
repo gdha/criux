@@ -175,15 +175,18 @@ function PrintF {
     if [[ $# -eq 2 ]]; then
 	i=1
 	str1="$1"
-	str2="$2"
+	shift
+	str2="$@"
     else
         i=$(IsDigit $1)
         [[ $i -eq 0 ]] && i=1
-	str1="$2"
-	str2="$3"
+	shift   # remove the integer
+	str1="$1"
+	shift
+	str2="$@"  # to have all the rest of the input
     fi
 
-    printf "%${i}s %-77s " "$str1" "$str2" >> "$OUTFILE"
+    printf "%${i}s %-80s " "$str1" "$str2" >> "$OUTFILE"
 }
 
 function Print {
@@ -247,21 +250,21 @@ function Failed {
 
 function Ok {
     PrintF 3 "**" "$@"
-    echo "[  OK  ]" >> "$OUTFILE"
+    echo "[ OK ]" >> "$OUTFILE"
 }
 
 function Skip {
     PrintF 3 "**" "$@"
-    echo "[ SKIP ]" >> "$OUTFILE"
+    echo "[SKIP]" >> "$OUTFILE"
 }
 
 function Warn {
     PrintF 3 "**" "$@"
-    echo "[ WARN ]" >> "$OUTFILE"
+    echo "[WARN]" >> "$OUTFILE"
 }
 
 function Comment {
-    PrintF 5 "" "$@"
+    PrintF 3 " " "$@"
     Newl
 }
 

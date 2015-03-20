@@ -54,7 +54,7 @@ do
 	fi # $? == 0
     fi
 done
-Ok "We have $count disk paths in good balance."
+Ok "We have $count SAN disk paths in good balance."
 if (( c >= 0 )) ; then
     Warn "Failed SAN devices are :"
     Comment "${Failed_devs[@]}"
