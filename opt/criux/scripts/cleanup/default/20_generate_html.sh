@@ -8,6 +8,8 @@ else
     MAILSUBJECT="Workflow $WORKFLOW report - status GOOD"
 fi
 
+LogPrint "Generating the HTML file"
+
 GenerateHTMLFile "$MAILSUBJECT"
 StopIfError "Could not generate the $HTMLFILE"
 

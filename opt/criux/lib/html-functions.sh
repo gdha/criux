@@ -122,11 +122,36 @@ function TableRow
 
 	#str=$( echo "${columns[c]}" | sed -e 's/^[:blank:]*//;s/[:blank:]*$//' )  # remove leading/trailing spaces
 	str=$( echo "${columns[c]}" | sed -e 's/^[ \t]*//;s/[ \t]*$//' )  # remove leading/trailing spaces
-        (( c == 1 )) && printf "<b>$str</b>" || printf "$str"
+        if (( c == 1 )) ; then
+	    echo "$str" | grep -q "<pre>" && printf "<b>$(EscapeChars $str)</b>" || printf "<b>$str</b>"
+        else   
+	    echo "$str" | grep -q "<pre>" && printf "$(EscapeChars $str)" || printf "$str"
+        fi
         echo "</td>"
         c=$((c + 1))
     done
     echo "</tr>"
+}
+
+function EscapeChars
+{
+    # input string may need HTML escape char treatment
+    # see URL: http://www.freeformatter.com/html-entities.html
+    str="$@"
+    i=1
+    > "$TMP_DIR/html.str"   # make sure the output is empty
+    while (( i <= ${#str} ))
+    do
+	char=$(expr substr "$str" $i 1)
+        case "$char" in
+            "%" ) printf "%s" "&#37;" ;;
+	    "&" ) printf "%s" "&amp;" ;;
+	    " " ) printf "%s" "&nbsp;" ;;
+	    *   ) printf "%s" "$char" ;;
+	esac
+	(( i += 1 ))
+    done >> "$TMP_DIR/html.str"
+    cat "$TMP_DIR/html.str"
 }
 
 function CreateParagraphLine
