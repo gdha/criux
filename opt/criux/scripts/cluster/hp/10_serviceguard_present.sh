@@ -1,10 +1,12 @@
-# 10_sg_version_matrix.sh
+# 10_serviceguard_present.sh
+
 # This script verifies the version of HP ServiveGuard and defines SERVICEGUARD_CLUSTER=1 is sg is present
 # SG_VERSION= (empty as defined in default.conf)
 
 case "$OS_VERSION" in
-    11.11)         SG_VERSION=$( grep B3935DA $TMP_DIR/swlist.output| awk '{print $2}' ) ;;
-    11.23|11.31)   SG_VERSION=$( grep T1905CA $TMP_DIR/swlist.output| awk '{print $2}' ) ;;
+    11.11)   SG_VERSION=$( grep B3935DA $TMP_DIR/swlist.output| awk '{print $2}' ) ;;
+    11.23)   SG_VERSION=$( grep T1905BA $TMP_DIR/swlist.output| awk '{print $2}' ) ;;
+    11.31)   SG_VERSION=$( grep T1905CA $TMP_DIR/swlist.output| awk '{print $2}' ) ;;
 esac
 
 if [[ ! -z "$SG_VERSION" ]]; then

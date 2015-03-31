@@ -6,4 +6,4 @@ which we can use to grep in later on (no need to re-run swlist ...)
 
 More important we want to identify if a serviceguard cluster software is installed so we can set
 variable SERVICEGUARD_CLUSTER=1; this triggers in the workflow script lib/cluster-workflow.sh the
-sun-workflow serviceguard (SourceStage) scripts/serviceguard
+sub-workflow serviceguard (SourceStage) scripts/serviceguard
