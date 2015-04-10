@@ -21,3 +21,7 @@
 if [[ -f /etc/cmcluster.conf ]]; then
     . /etc/cmcluster.conf
 fi
+
+# adding the paths to serviceguard executables to the path
+PATH=$PATH:$SGSBIN:$SGLBIN
+export PATH
