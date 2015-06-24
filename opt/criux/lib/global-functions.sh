@@ -227,14 +227,14 @@ function KillProc {
 function PingSystem {
     case $OS in
         Linux|Darwin)
-	    i=$(ping -c 2 ${1} | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
-	    ;;
-	HP-UX|CYGWIN_NT-5.1)
-	    i=$(ping ${1} -n 2 | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
-	    ;;
-	SunOS)
+            i=$(ping -c 2 ${1} | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
+            ;;
+        HP-UX|CYGWIN_NT-5.1)
+            i=$(ping ${1} -n 2 | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
+            ;;
+        *)
             i=$(ping ${1} >/dev/null 2>&2; echo $?)
-	    ;;
+            ;;
     esac
     [ -z "$i" ] && i=2      # when ping returns "host unknown error"
     # i=1 : not reachable
@@ -254,5 +254,6 @@ function GenerateTempDirName {
     [[ ! -d "$DIR1" ]] && DIR1=/tmp  # when not existing use /tmp as default
     [[ -z "$DIR2" ]] && DIR2="$PROGRAM"
     echo "${DIR1}/${DIR2}_${RANDOM}"
-
 }
+
+# ------------------------------------------------------------------------------
