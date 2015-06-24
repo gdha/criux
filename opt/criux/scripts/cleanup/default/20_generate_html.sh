@@ -14,5 +14,5 @@ GenerateHTMLFile "$MAILSUBJECT"
 StopIfError "Could not generate the $HTMLFILE"
 
 # now the HTMLFILE has been created - save a copy as reference in $VAR_DIR
-cp  "$HTMLFILE" "$VAR_DIR/${PROGRAM%.*}-$(date '+%Y%m%d-%H%M').html" >&2
-StopIfError "Could not copy $HTMLFILE to $VAR_DIR/${PROGRAM%.*}-$(date '+%Y%m%d-%H%M').html"
+cp  "$HTMLFILE" "$VAR_DIR/${PROGRAM%.*}-${TIME_STAMP}.html" >&2
+StopIfError "Could not copy $HTMLFILE to $VAR_DIR/${PROGRAM%.*}-${TIME_STAMP}.html"
