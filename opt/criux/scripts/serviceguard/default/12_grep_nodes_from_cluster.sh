@@ -6,8 +6,8 @@ do
     NODES[$i]="$node" 
     i=$((i+1))
 done
-count=${#NODES[@]}
-if (( count < 1 )); then
+NCOUNT=${#NODES[@]}
+if (( NCOUNT < 1 )); then
     Error "Serviceguard cluster $CL_NAME contains no nodes"
 else
     nodes="${NODES[@]}"

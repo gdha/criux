@@ -3,7 +3,7 @@
 
 a=$(setboot | grep Primary | awk '{ print $4 }' | sed -e 's#/#\\/#g')
 if [[ -z "$a" ]]; then
-    Fatal "setboot command does not show a Primary disk!"
+    Failed "setboot command does not show a Primary disk!"
 else
     Ok "setboot command shows a primary disk." 
 fi
@@ -26,7 +26,7 @@ set -A BootableDisks $( /usr/sbin/lvlnboot -v 2>/dev/null | grep "Boot Disk" | a
 
 if [[ ! -s $TMP_DIR/bootdisk ]]; then
     LogPrint "The /stand/bootconf file is missing and should contain"
-    Fatal "The /stand/bootconf file is missing and should contain:"
+    Failed "The /stand/bootconf file is missing and should contain:"
     for disk in $(echo ${BootableDisks[@]})
     do
         Comment "  l  $disk"
@@ -34,7 +34,7 @@ if [[ ! -s $TMP_DIR/bootdisk ]]; then
 fi
 
 if [[ ! -f /stand/bootconf ]]; then
-    Fatal "ERROR: Critical file /stand/bootconf missing!"
+    Failed "ERROR: Critical file /stand/bootconf missing!"
 else
     countbdsk=${#BootableDisks[@]}
     countbcfg=$(wc -l /stand/bootconf 2>/dev/null | awk '{print $1}')
