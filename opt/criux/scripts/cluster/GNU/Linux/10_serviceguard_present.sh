@@ -5,7 +5,8 @@
 
 [[ ! -f "$TMP_DIR/rpm_qa.txt" ]] && return
 
-SG_VERSION=$( grep -i serviceguard-A.11 "$TMP_DIR/rpm_qa.txt" | cut -d- -f2 )
+# we could also use cmversion to achieve the same, but we are not sure the RPMs are installed yet :-)
+SG_VERSION=$( grep -i serviceguard-A. "$TMP_DIR/rpm_qa.txt" | cut -d- -f2 )
 
 if [[ ! -z "$SG_VERSION" ]]; then
     SERVICEGUARD_CLUSTER=1
