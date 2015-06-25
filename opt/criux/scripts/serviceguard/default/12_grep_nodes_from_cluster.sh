@@ -11,5 +11,5 @@ if (( NCOUNT < 1 )); then
     Error "Serviceguard cluster $CL_NAME contains no nodes"
 else
     nodes="${NODES[@]}"
-    Ok "Serviceguard cluster $CL_NAME contains $count nodes ($nodes)"
+    Ok "Serviceguard cluster $CL_NAME contains $NCOUNT nodes ($nodes)"
 fi
