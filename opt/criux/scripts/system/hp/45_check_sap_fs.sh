@@ -50,6 +50,7 @@ do
     }
 done
 
+mount | grep -vi -E '(nfs|vg00)' > "$TMP_DIR/mounted.fs"
 # loop once again for mirror and archive log directories
 cat "$TMP_DIR/mounted.fs" | while read mntpt junk device options junk
 do
