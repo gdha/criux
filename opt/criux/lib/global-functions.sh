@@ -166,7 +166,7 @@ function IsVolumeGroupActive {
 # ------------------------------------------------------------------------------
 function Timeout {
     # function to timeout processes hanging on e.g. stale NFS mount points
-    # usage: timeout seconds commands
+    # usage: Timeout seconds commands
     # Timeout 10 ls $mount_point >/dev/null
     # rc=$?
     # [[ $rc -ne 0 ]] && echo "stale $mount_point" || echo "mount point $mount_point seems not to be stale"
@@ -234,6 +234,30 @@ function PingSystem {
             ;;
         *)
             i=$(ping ${1} >/dev/null 2>&2; echo $?)
+            ;;
+    esac
+    [ -z "$i" ] && i=2      # when ping returns "host unknown error"
+    # i=1 : not reachable
+    # i=0 : reachable
+    echo $i
+}
+
+# ------------------------------------------------------------------------------
+function PingViaInterface {
+    # HP-UX/Solaris: ping -i address
+    # Linux: ping -I address
+    # arg1: interface IP address; arg2: destination host to ping
+    case $OS in
+        Linux)
+            i=$(ping -I ${1} -c 2 ${2} | grep "packet loss" | cut -d, -f3 | awk '{print $2}' | cut -d% -f1 | cut -d. -f1)
+            ;;
+        HP-UX)
+            i=$(ping -i ${1} ${2} -n 2 | grep "packet loss" | cut -d, -f3 | awk '{print $2}' | cut -d% -f1 | cut -d. -f1)
+            ;;
+        SunOS)
+            i=$(ping -i ${1} ${2} >/dev/null 2>&2; echo $?)
+            ;;
+            *) Error "Do not how to ping via interface ($1) host $2 (for OS $OS)"
             ;;
     esac
     [ -z "$i" ] && i=2      # when ping returns "host unknown error"
