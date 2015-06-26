@@ -249,10 +249,10 @@ function PingViaInterface {
     # arg1: interface IP address; arg2: destination host to ping
     case $OS in
         Linux)
-            i=$(ping -I ${1} -c 2 ${2} | grep "packet loss" | cut -d, -f3 | awk '{print $2}' | cut -d% -f1 | cut -d. -f1)
+            i=$(ping -I ${1} -c 2 ${2} | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
             ;;
         HP-UX)
-            i=$(ping -i ${1} ${2} -n 2 | grep "packet loss" | cut -d, -f3 | awk '{print $2}' | cut -d% -f1 | cut -d. -f1)
+            i=$(ping -i ${1} ${2} -n 2 | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
             ;;
         SunOS)
             i=$(ping -i ${1} ${2} >/dev/null 2>&2; echo $?)
