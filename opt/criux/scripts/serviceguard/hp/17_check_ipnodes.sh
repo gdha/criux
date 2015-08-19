@@ -14,5 +14,5 @@ grep -q "^ipnodes:" /etc/nsswitch.conf
 if [[ $? -eq 0 ]]; then
     Ok "The /etc/nsswitch.conf contains ipnodes entry"
 else
-    Fail "The /etc/nsswitch.conf contains ipnodes entry"
+    Failed "The /etc/nsswitch.conf contains ipnodes entry"
 fi
