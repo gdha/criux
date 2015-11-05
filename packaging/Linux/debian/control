@@ -1,0 +1,12 @@
+Source: criux
+Section: misc
+Priority: optional
+Maintainer: Gratien Dhaese <gratien.dhaese@hmail.com>
+Homepage: http://www.it3.be/projects/criux.html
+
+Package: criux
+Architecture: all
+Provides: criux
+Build-Depends: debhelper (>> 5.0.0)
+Depends: binutils, gawk, ksh
+Description: Criux is an Open Source framework to investigate cluster nodes
