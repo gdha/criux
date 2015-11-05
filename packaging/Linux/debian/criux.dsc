@@ -1,6 +1,6 @@
 Format: 1.0
 Source: criux
-Version: 1.2
+Version: 0.1
 Binary: criux
 Maintainer: Gratien Dhaese <gratien.dhaese@gmail.com>
 Architecture: all

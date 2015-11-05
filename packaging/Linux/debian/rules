@@ -42,7 +42,7 @@ binary-indep: build
 	
 	# copy criux components into directories
 	cp -av ../../../etc/opt/criux debian/criux/etc/opt/criux
-	cp -av ../../../criux/bin debian/criux/opt/upgrade/bin/
+	cp -av ../../../criux/bin debian/criux/opt/criux/bin/
 	cp -av ../../../criux/lib debian/criux/opt/criux/lib/
 	cp -av ../../../criux/scripts debian/criux/opt/criux/scripts/
 	
