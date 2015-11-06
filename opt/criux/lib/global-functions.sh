@@ -132,7 +132,7 @@ function GetHostnameFromIP {
         HP-UX)
              xxx=$(nslookup $1 | grep "^Name:" | awk '{print $2}' 2>/dev/null)
          ;;
-        Linux)
+        GNU/Linux)
              xxx=$(dig +short -x $1 | cut -d. -f1 2>/dev/null)
          ;;
     esac
@@ -226,7 +226,7 @@ function KillProc {
 # ------------------------------------------------------------------------------
 function PingSystem {
     case $OS in
-        Linux|Darwin)
+        GNU/Linux|Darwin)
             i=$(ping -c 2 ${1} | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
             ;;
         HP-UX|CYGWIN_NT-5.1)
@@ -248,7 +248,7 @@ function PingViaInterface {
     # Linux: ping -I address
     # arg1: interface IP address; arg2: destination host to ping
     case $OS in
-        Linux)
+        GNU/Linux)
             i=$(ping -I ${1} -c 2 ${2} | grep "packet loss" | cut -d, -f3 | awk '{print $1}' | cut -d% -f1 | cut -d. -f1)
             ;;
         HP-UX)
